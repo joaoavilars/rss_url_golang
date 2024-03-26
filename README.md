@@ -6,6 +6,7 @@ Este é um programa em Go que extrai informações de uma página HTML e gera um
 
 - Go 1.16 ou superior
 
+
 ## Instalação
 
 1. Clone este repositório:
@@ -13,6 +14,10 @@ Este é um programa em Go que extrai informações de uma página HTML e gera um
 ```bash
 git clone https://github.com/joaoavilars/rss_url_golang.git
 cd rss_url_golang
+```
+Instale a dependência:
+```
+go get github.com/PuerkitoBio/goquery
 ```
 
 ## Compilação:
