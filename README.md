@@ -1,6 +1,6 @@
 # Gerador de RSS para Serviços de Contingência
 
-Este é um programa em Go que extrai informações de uma página HTML e gera um arquivo XML no formato RSS 2.0 contendo essas informações. O programa é útil para criar feeds de notícias ou atualizações a partir de dados estruturados em uma página da web.
+Este é um programa em Go que extrai informações de uma página HTML e gera um arquivo XML no formato RSS 2.0 contendo essas informações. O programa é útil para criar feeds de notícias ou atualizações a partir de dados estruturados da página https://www.sefaz.rs.gov.br/NFE/NFE-SVC.aspx.
 
 ## Requisitos
 
