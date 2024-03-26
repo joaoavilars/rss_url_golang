@@ -58,12 +58,13 @@ func extractItems(n *html.Node, rss *RSS) {
 
 // Extrai links especificamente dentro da div conteudoDinamico
 func extractLinks(n *html.Node, rss *RSS) {
-	// Verifica se o nó atual é um link dentro de um parágrafo (<p>)
 	if n.Type == html.ElementNode && n.Data == "a" {
-		link, _ := getHref(n) // Pega o link correto
+		var link, title, desc string
 
-		var title, desc string
-		// Percorre os filhos do link (<a>) para encontrar o <span> com a classe "tituloConteudo"
+		// Extrair o link
+		link, _ = getHref(n)
+
+		// Percorrer os filhos do link (<a>) para encontrar o <span> com classe "tituloConteudo"
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
 			if c.Type == html.ElementNode && c.Data == "span" {
 				for _, a := range c.Attr {
@@ -75,28 +76,33 @@ func extractLinks(n *html.Node, rss *RSS) {
 			}
 		}
 
-		// Percorre os nós irmãos do <a> para encontrar a descrição após o primeiro <br>
+		// Encontrar a descrição coletando todos os textos até o fechamento do parágrafo
+		descBuilder := strings.Builder{}
 		for s := n.NextSibling; s != nil; s = s.NextSibling {
-			if s.Type == html.ElementNode && s.Data == "br" {
-				if s.NextSibling != nil && s.NextSibling.Type == html.TextNode {
-					desc = strings.TrimSpace(s.NextSibling.Data)
-					break
-				}
+			if s.Type == html.TextNode {
+				descBuilder.WriteString(strings.TrimSpace(s.Data) + " ")
+			} else if s.Type == html.ElementNode && s.Data == "br" {
+				// Incluímos uma quebra de linha no texto da descrição para cada <br>
+				descBuilder.WriteString("\n")
+			} else if s.Type == html.ElementNode && s.Data == "p" {
+				// Se atingir outro elemento <p>, para de coletar a descrição
+				break
 			}
 		}
 
-		// Se conseguiu extrair o título e o link
+		desc = descBuilder.String()
+
+		// Adicionando ao RSS se título e link não estiverem vazios
 		if title != "" && link != "" {
-			item := Item{
+			rss.Channel.Items = append(rss.Channel.Items, Item{
 				Title: title,
 				Link:  link,
 				Desc:  desc,
-			}
-			rss.Channel.Items = append(rss.Channel.Items, item)
+			})
 		}
 	}
 
-	// Continua a percorrer a árvore DOM recursivamente
+	// Recursivamente percorre o restante dos nós
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
 		extractLinks(c, rss)
 	}
