@@ -2,6 +2,10 @@
 
 Este é um programa em Go que extrai informações de uma página HTML e gera um arquivo XML no formato RSS 2.0 contendo essas informações. O programa é útil para criar feeds de notícias ou atualizações a partir de dados estruturados da página https://www.sefaz.rs.gov.br/NFE/NFE-SVC.aspx.
 
+o rss_nt.go é para obter uma lista das NTs que forem publicadas no site:
+https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=04BIflQt1aY=
+
+
 ## Requisitos
 
 - Go 1.16 ou superior
