@@ -26,7 +26,12 @@ go get github.com/PuerkitoBio/goquery
 
 ## Compilação:
 ```
-GOARCH=amd64 GOOS=linux go build -o gera_rss -tags netgo -ldflags '-extldflags "-static"' main.go 
+- gera_rss
+GOARCH=amd64 GOOS=linux go build -o gera_rss -tags netgo -ldflags '-extldflags "-static"' main.go
+
+- rss_nt
+GOARCH=amd64 GOOS=linux go build -o rss_nt -tags netgo -ldflags '-extldflags "-static"' rss_nt.go
+
 ```
 
 ## Uso:
