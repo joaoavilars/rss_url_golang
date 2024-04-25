@@ -130,9 +130,9 @@ func main() {
 	rss := RSS{
 		Version: "2.0",
 		Channel: Channel{
-			Title: "Últimas NTs",
+			Title: "Notas Técnias - SEFAZ",
 			Link:  url,
-			Desc:  "Últimas Notas Técnicas",
+			Desc:  "Notas Técnicas",
 		},
 	}
 
